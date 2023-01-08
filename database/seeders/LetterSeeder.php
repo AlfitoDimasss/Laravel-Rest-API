@@ -20,18 +20,18 @@ class LetterSeeder extends Seeder
             'user_id' => 2,
             'letter_category_id' => 1,
             'name' => 'Alex Rama',
-            'start_date' => Carbon::now(),
+            'description' => 'Pengajuan dinas kerja ke Jakarta',
+            'effective_date' => Carbon::now(),
             'end_date' => Carbon::now(),
-            'status' => 'On Process'
         ]);
 
         Letter::insert([
             'user_id' => 2,
             'letter_category_id' => 2,
             'name' => 'Alex Ramadhan',
-            'start_date' => Carbon::now(),
+            'description' => 'Pengajuan surat lamaran kerja ke PT ABC',
+            'effective_date' => Carbon::now(),
             'end_date' => Carbon::now(),
-            'status' => 'On Process'
         ]);
     }
 }

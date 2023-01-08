@@ -4,11 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Helpers\Formatter;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Letter;
 use Exception;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class LetterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::all();
+        $data = Letter::all();
 
         if ($data) {
             return Formatter::createAPI(200, 'Success', $data);
@@ -36,19 +36,24 @@ class UserController extends Controller
     {
         try {
             $request->validate([
+                'user_id' => 'required',
+                'letter_category_id' => 'required',
                 'name' => 'required',
-                'email' => 'required|unique:users,email',
-                'password' => 'required'
-
+                'description' => 'required',
+                'effective_date' => 'required',
+                'end_date' => 'required'
             ]);
 
-            $user = User::create([
+            $letter = Letter::create([
+                'user_id' => $request->user_id,
+                'letter_category_id' => $request->letter_category_id,
                 'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password
+                'description' => $request->description,
+                'effective_date' => $request->effective_date,
+                'end_date' => $request->end_date
             ]);
 
-            $data = User::where('id', '=', $user->id)->get();
+            $data = Letter::where('id', '=', $letter->id)->get();
 
             if ($data) {
                 return Formatter::createAPI(200, 'Success', $data);
@@ -68,7 +73,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $data = User::where('id', '=', $id)->get();
+        $data = Letter::where('id', '=', $id)->get();
         if ($data) {
             return Formatter::createAPI(200, 'Success', $data);
         } else {
@@ -87,25 +92,31 @@ class UserController extends Controller
     {
         try {
             $request->validate([
+                'user_id' => 'required',
+                'letter_category_id' => 'required',
                 'name' => 'required',
-                'email' => 'required|unique:users,email',
-                'password' => 'required'
+                'description' => 'required',
+                'effective_date' => 'required',
+                'end_date' => 'required'
             ]);
 
-            $user = User::findOrFail($id);
+            $letter = Letter::findOrFail($id);
 
-            $user->update([
+            $letter->update([
+                'user_id' => $request->user_id,
+                'letter_category_id' => $request->letter_category_id,
                 'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password
+                'description' => $request->description,
+                'effective_date' => $request->effective_date,
+                'end_date' => $request->end_date
             ]);
 
-            $data = User::where('id', '=', $user->id)->get();
+            $data = Letter::where('id', '=', $letter->id)->get();
 
             if ($data) {
-                return Formatter::createAPI(200, 'Success Update', $data);
+                return Formatter::createAPI(200, 'Success', $data);
             } else {
-                return Formatter::createAPI(400, 'Failed Update');
+                return Formatter::createAPI(400, 'Failed');
             }
         } catch (Exception $e) {
             return Formatter::createAPI(400, 'Failed', $e);
@@ -121,8 +132,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $user = User::findOrFail($id);
-            $data = $user->delete();
+            $letter = Letter::findOrFail($id);
+            $data = $letter->delete();
             if ($data) {
                 return Formatter::createAPI(200, 'Success Delete Data');
             } else {

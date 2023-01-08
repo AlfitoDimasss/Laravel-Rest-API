@@ -27,7 +27,6 @@ class UserSeeder extends Seeder
             'name' => 'client1',
             'email' => 'client1@gmail.com',
             'password' => 'password',
-            'role_id' => 2,
             'status' => 'active'
         ]);
 
@@ -35,7 +34,6 @@ class UserSeeder extends Seeder
             'name' => 'client2',
             'email' => 'client2@gmail.com',
             'password' => 'password',
-            'role_id' => 2
         ]);
     }
 }

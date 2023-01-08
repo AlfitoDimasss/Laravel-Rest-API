@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\LetterCategoryController;
+use App\Http\Controllers\API\LetterController;
+use App\Http\Controllers\API\RoleController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,5 +20,3 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('user', [UserController::class, 'index']);

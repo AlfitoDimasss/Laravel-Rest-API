@@ -4,11 +4,11 @@ namespace App\Http\Controllers\API;
 
 use App\Helpers\Formatter;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\LetterCategory;
 use Exception;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class LetterCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::all();
+        $data = LetterCategory::all();
 
         if ($data) {
             return Formatter::createAPI(200, 'Success', $data);
@@ -36,19 +36,14 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required',
-                'email' => 'required|unique:users,email',
-                'password' => 'required'
-
+                'letter_category' => 'required'
             ]);
 
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password
+            $letterCategory = LetterCategory::create([
+                'letter_category' => $request->letter_category
             ]);
 
-            $data = User::where('id', '=', $user->id)->get();
+            $data = LetterCategory::where('id', '=', $letterCategory->id)->get();
 
             if ($data) {
                 return Formatter::createAPI(200, 'Success', $data);
@@ -68,7 +63,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $data = User::where('id', '=', $id)->get();
+        $data = LetterCategory::where('id', '=', $id)->get();
+
         if ($data) {
             return Formatter::createAPI(200, 'Success', $data);
         } else {
@@ -87,25 +83,21 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'name' => 'required',
-                'email' => 'required|unique:users,email',
-                'password' => 'required'
+                'letter_category' => 'required'
             ]);
 
-            $user = User::findOrFail($id);
+            $letterCategory = LetterCategory::findOrFail($id);
 
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $request->password
+            $letterCategory->update([
+                'letter_category' => $request->letter_category
             ]);
 
-            $data = User::where('id', '=', $user->id)->get();
+            $data = LetterCategory::where('id', '=', $letterCategory->id)->get();
 
             if ($data) {
-                return Formatter::createAPI(200, 'Success Update', $data);
+                return Formatter::createAPI(200, 'Success', $data);
             } else {
-                return Formatter::createAPI(400, 'Failed Update');
+                return Formatter::createAPI(400, 'Failed');
             }
         } catch (Exception $e) {
             return Formatter::createAPI(400, 'Failed', $e);
@@ -121,8 +113,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         try {
-            $user = User::findOrFail($id);
-            $data = $user->delete();
+            $letterCategory = LetterCategory::findOrFail($id);
+            $data = $letterCategory->delete();
             if ($data) {
                 return Formatter::createAPI(200, 'Success Delete Data');
             } else {

@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('letter_categories', function (Blueprint $table) {
             $table->id();
             $table->string('letter_category');
-            $table->timestamps();
         });
     }
 

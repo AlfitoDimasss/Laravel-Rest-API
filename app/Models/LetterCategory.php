@@ -9,6 +9,12 @@ class LetterCategory extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
+    protected $fillable = [
+        'letter_category'
+    ];
+
     public function letters()
     {
         $this->hasMany(Letter::class);
