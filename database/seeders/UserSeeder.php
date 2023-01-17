@@ -24,15 +24,15 @@ class UserSeeder extends Seeder
         ]);
 
         User::insert([
-            'name' => 'client1',
-            'email' => 'client1@gmail.com',
+            'name' => 'user-a',
+            'email' => 'usera@gmail.com',
             'password' => 'password',
             'status' => 'active'
         ]);
 
         User::insert([
-            'name' => 'client2',
-            'email' => 'client2@gmail.com',
+            'name' => 'user-b',
+            'email' => 'userb@gmail.com',
             'password' => 'password',
         ]);
     }

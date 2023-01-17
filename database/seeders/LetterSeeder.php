@@ -22,7 +22,7 @@ class LetterSeeder extends Seeder
             'name' => 'Alex Rama',
             'description' => 'Pengajuan dinas kerja ke Jakarta',
             'effective_date' => Carbon::now(),
-            'end_date' => Carbon::now(),
+            'end_date' => Carbon::tomorrow(),
         ]);
 
         Letter::insert([
@@ -31,7 +31,7 @@ class LetterSeeder extends Seeder
             'name' => 'Alex Ramadhan',
             'description' => 'Pengajuan surat lamaran kerja ke PT ABC',
             'effective_date' => Carbon::now(),
-            'end_date' => Carbon::now(),
+            'end_date' => Carbon::tomorrow(),
         ]);
     }
 }
